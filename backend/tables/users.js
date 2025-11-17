@@ -20,3 +20,5 @@ export const updateUser = (email, password, id) =>
     .run(email, password, id);
 export const deleteUser = (id) =>
   db.prepare(`DELETE FROM users WHERE id = ?`).run(id);
+export const getUserByEmail = (email) =>
+  db.prepare(`SELECT * FROM users WHERE email = ?`).get(email);
