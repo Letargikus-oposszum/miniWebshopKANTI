@@ -1,4 +1,4 @@
-import * as User from "../data/user.js";
+import * as User from "../tables/users.js";
 import jwt from "jsonwebtoken";
 
 function auth(req, res, next) {
@@ -25,3 +25,5 @@ function auth(req, res, next) {
       .json({ message: "Something went wrong", error: err.message });
   }
 }
+
+export default auth;

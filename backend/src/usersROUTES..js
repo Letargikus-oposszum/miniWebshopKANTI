@@ -1,10 +1,11 @@
 import express from "express";
 import { getUserById, saveUser, updateUser, deleteUser, getUserByEmail } from "../tables/users.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const user_routes = express.Router();
 
-user_routes.get("/", (req, res) => {
+user_routes.get("/:id", (req, res) => {
   const id = req.params.id;
   const user = getUserById(id);
   if (!user) {
@@ -33,6 +34,32 @@ user_routes.post("/register", async (req, res) => {
 
   res.status(201).json(user);
 });
+
+user_routes.post("/login", async (req, res) => {
+  const {email,password} = req.body;
+
+  if (!email || !password) {
+    res.status(400).json({ message: "Some data are missing!" });
+  }
+
+  const user = getUserByEmail(email);
+  if (!user) {
+    return res.status(400).json({ message: "No such user!" });
+  }
+
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) {
+    return res.status(400).json({ message: "Incorrect password!" });
+  }
+
+  const token = jwt.sign(
+    { id: user.id, email: user.email },
+    "secret_key",
+    { expiresIn: "1h" }
+  );
+
+  res.status(200).json({ accessToken: token }); 
+})
 
 user_routes.put("/:id", async (req, res) => {
   const id = req.params.id;
