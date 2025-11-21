@@ -1,5 +1,5 @@
-const Errors = () => {
-  return <div>Errors page</div>
+const NotFoundPage = () => {
+  return <div><h1>404</h1></div>
 }
 
-export default Errors;
+export default NotFoundPage;
