@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import Errors from './pages/error/Erros'
+import Errors from './pages/error/Errors'
 import Home from './pages/Home'
 
 createRoot(document.getElementById('root')!).render(
