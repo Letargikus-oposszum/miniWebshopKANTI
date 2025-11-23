@@ -3,7 +3,8 @@ import {
   getCartProductsByUser,
   getcart_items,
   getcart_itemsById,
-  addCartItem
+  addCartItem,
+  deleteCartItemById
 } from "../tables/cart_items.js";
 
 const cart_items_Routes = express.Router();
@@ -12,7 +13,6 @@ cart_items_Routes.get("/", (req, res) => {
   const cart_items = getcart_items();
   res.json(cart_items);
 });
-
 cart_items_Routes.get("/:id", (req, res) => {
   const id = req.params.id;
   const cart_item = getcart_itemsById(id);
@@ -44,6 +44,12 @@ cart_items_Routes.post("/", (req, res) => {
     cartItemId: result.lastInsertRowid,
     message: "Item added to cart"
   });
+});
+
+cart_items_Routes.delete("/:id", (req, res) => {
+  const id = req.params.id;
+  deleteCartItemById(id);
+  res.json({ message: `Cart item with id ${id} deleted.` });
 });
 
 export default cart_items_Routes;

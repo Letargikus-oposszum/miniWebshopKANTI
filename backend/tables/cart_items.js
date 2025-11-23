@@ -14,12 +14,16 @@ db.prepare(
 export const getcart_items = () => db.prepare("SELECT * FROM cart_items").all();
 export const addCartItem = (userId, productId, quantity) =>
   db
-    .prepare(`INSERT INTO cart_items (userId, productId, quantity) VALUES (?,?,?)`)
+    .prepare(
+      `INSERT INTO cart_items (userId, productId, quantity) VALUES (?,?,?)`
+    )
     .run(userId, productId, quantity);
 export const getcart_itemsById = (id) =>
   db.prepare(`SELECT * FROM cart_items WHERE id = ?`).get(id);
 export const getCartProductsByUser = (userId) =>
-  db.prepare(`
+  db
+    .prepare(
+      `
     SELECT 
       cart_items.id AS cartItemId,
       products.id AS productId,
@@ -30,4 +34,9 @@ export const getCartProductsByUser = (userId) =>
     FROM cart_items
     JOIN products ON cart_items.productId = products.id
     WHERE cart_items.userId = ?
-  `).all(userId);
+  `
+    )
+    .all(userId);
+
+export const deleteCartItemById = (id) =>
+  db.prepare(`DELETE FROM cart_items WHERE id = ?`).run(id);

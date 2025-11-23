@@ -3,9 +3,11 @@ import apiClient from "../api/apiClient";
 import type { Product } from "../types/Product";
 import { toast } from "react-toastify";
 import { Button, Card, Container, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState<Array<Product>>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     apiClient
@@ -14,17 +16,49 @@ const Home = () => {
       .catch(() => toast.error("Failed to load products!"));
   }, []);
 
+  const addItemToCart = (productId: number) => {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    apiClient
+      .post(
+        "/cart_items",
+        {
+          userId: userId,
+          productId: productId,
+          quantity: 1,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        toast.success("Item added to cart!");
+      })
+      .catch(() => {
+        toast.error("Failed to add item to cart!");
+      });
+  };
+
   const cardItem = (product: Product) => {
     return (
       <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src="holder.js/100px180" />
         <Card.Body>
           <Card.Title>{product.name}</Card.Title>
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            {product.price} Ft
+            {product.stock <= 0 ? " (Out of stock)" : ""}
           </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
+          <Button variant="primary" onClick={() => addItemToCart(product.id)}>
+            Add to cart
+          </Button>
         </Card.Body>
       </Card>
     );
@@ -32,6 +66,21 @@ const Home = () => {
 
   return (
     <Container>
+      <div
+        style={{
+          position: "sticky",
+          top: "3px",
+          display: "flex",
+          justifyContent: "flex-end",
+          marginRight: "3px",
+          zIndex: 1000, // ensures it's above other content
+        }}
+      >
+        <Button variant="primary" onClick={() => navigate("/cart")}>
+          Go to cart
+        </Button>
+      </div>
+
       <Row xs={"auto"} md={"auto"} className="g-4">
         {products.map((product) => cardItem(product))}
       </Row>

@@ -36,10 +36,10 @@ user_routes.post("/register", async (req, res) => {
 });
 
 user_routes.post("/login", async (req, res) => {
-  const {email,password} = req.body;
+  const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(400).json({ message: "Some data are missing!" });
+    return res.status(400).json({ message: "Some data are missing!" });
   }
 
   const user = getUserByEmail(email);
@@ -58,8 +58,11 @@ user_routes.post("/login", async (req, res) => {
     { expiresIn: "1h" }
   );
 
-  res.status(200).json({ accessToken: token }); 
-})
+  return res.status(200).json({
+    accessToken: token,
+    userId: user.id,
+  });
+});
 
 user_routes.put("/:id", async (req, res) => {
   const id = req.params.id;
