@@ -76,9 +76,16 @@ const Home = () => {
           zIndex: 1000, // ensures it's above other content
         }}
       >
-        <Button variant="primary" onClick={() => navigate("/cart")}>
+        <Button
+          variant="primary"
+          onClick={() => {
+            navigate("/cart");
+          }}
+        >
           Go to cart
         </Button>
+        &nbsp;
+        <Button onClick={() => navigate("/orders")}>View orders</Button>
       </div>
 
       <Row xs={"auto"} md={"auto"} className="g-4">

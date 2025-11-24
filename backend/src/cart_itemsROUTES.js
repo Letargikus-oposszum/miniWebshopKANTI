@@ -24,11 +24,14 @@ cart_items_Routes.get("/:id", (req, res) => {
 
 cart_items_Routes.get("/user/:id", (req, res) => {
   const id = req.params.id;
-  const cart_items = getCartProductsByUser(id);
-  if (!cart_items) {
-    res.status(404).json({ message: "Cart is empty." });
+  const cartItems = getCartProductsByUser(id);
+  if (!cartItems || cartItems.length === 0) {
+    return res.status(404).json({ message: "Cart is empty." });
   }
+  res.json(cartItems);
 });
+
+
 
 cart_items_Routes.post("/", (req, res) => {
   const { userId, productId, quantity } = req.body;

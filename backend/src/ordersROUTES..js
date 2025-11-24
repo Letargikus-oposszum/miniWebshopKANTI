@@ -1,7 +1,13 @@
 import express from "express";
-import { savecart_items } from "../tables/orders.js";
+import { savecart_items , deleteOrder, getOrders} from "../tables/orders.js";
 
 const order_routes = express.Router();
+
+order_routes.get("/", (req, res) => {
+  const orders = getOrders();
+  
+  res.json(orders);
+});
 
 order_routes.post("/", (req, res) => {
   const { userId, total, created_at } = req.body;
@@ -10,5 +16,11 @@ order_routes.post("/", (req, res) => {
 
   res.json({ success: true, id: result.lastInsertRowid });
 });
+
+order_routes.delete("/:id",(req,res)=>{
+  const id = req.params.id;
+  deleteOrder(id);
+  res.json({message: `Order with id ${id} deleted.`});
+})
 
 export default order_routes;

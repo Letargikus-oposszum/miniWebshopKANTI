@@ -25,7 +25,7 @@ export const getCartProductsByUser = (userId) =>
     .prepare(
       `
     SELECT 
-      cart_items.id AS cartItemId,
+      cart_items.id AS id,
       products.id AS productId,
       products.name,
       products.price,
