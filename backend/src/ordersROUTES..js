@@ -1,11 +1,16 @@
 import express from "express";
-import { savecart_items , deleteOrder, getOrders} from "../tables/orders.js";
+import {
+  savecart_items,
+  deleteOrder,
+  getOrders,
+  getOrdersByUser,
+} from "../tables/orders.js";
 
 const order_routes = express.Router();
 
 order_routes.get("/", (req, res) => {
   const orders = getOrders();
-  
+
   res.json(orders);
 });
 
@@ -17,10 +22,17 @@ order_routes.post("/", (req, res) => {
   res.json({ success: true, id: result.lastInsertRowid });
 });
 
-order_routes.delete("/:id",(req,res)=>{
+order_routes.delete("/:id", (req, res) => {
   const id = req.params.id;
   deleteOrder(id);
-  res.json({message: `Order with id ${id} deleted.`});
-})
-
+  res.json({ message: `Order with id ${id} deleted.` });
+});
+order_routes.get("/user/:id", (req, res) => {
+  const id = req.params.id;
+  const orders = getOrdersByUser(id);
+  if (!orders || orders.length === 0) {
+    return res.status(404).json({ message: "No orders!." });
+  }
+  res.json(cartItems);
+});
 export default order_routes;

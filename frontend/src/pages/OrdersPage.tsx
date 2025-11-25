@@ -10,8 +10,15 @@ const OrdersPage = () => {
   const [orders, setOrders] = useState<Array<Order>>([]);
 
   useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
+
+    if (!userId || !token) {
+      navigate("/login");
+      return;
+    }
     apiClient
-      .get("/orders")
+      .get(`/orders/${userId}`)
       .then((res) => {
         setOrders(res.data);
       })

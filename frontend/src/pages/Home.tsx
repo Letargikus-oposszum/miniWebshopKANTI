@@ -66,29 +66,51 @@ const Home = () => {
 
   return (
     <Container>
-      <div
-        style={{
-          position: "sticky",
-          top: "3px",
-          display: "flex",
-          justifyContent: "flex-end",
-          marginRight: "3px",
-          zIndex: 1000, // ensures it's above other content
-        }}
-      >
-        <Button
-          variant="primary"
-          onClick={() => {
-            navigate("/cart");
+      <header style={{ backgroundColor: "skyblue" }}>
+        <h3>Webshop</h3>
+        <div
+          style={{
+            position: "sticky",
+            top: "3px",
+            display: "flex",
+            justifyContent: "flex-end",
+            marginRight: "3px",
+            zIndex: 1000, // ensures it's above other content
           }}
         >
-          Go to cart
-        </Button>
-        &nbsp;
-        <Button onClick={() => navigate("/orders")}>View orders</Button>
-      </div>
-
-      <Row xs={"auto"} md={"auto"} className="g-4">
+          <Button
+            variant="primary"
+            onClick={() => {
+              navigate("/cart");
+            }}
+          >
+            Go to cart
+          </Button>
+          &nbsp;
+          <Button
+            onClick={() => {
+              navigate("/orders");
+            }}
+          >
+            View orders
+          </Button>
+          &nbsp;
+          <Button
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Register/Login
+          </Button>
+          <hr />
+        </div>
+      </header>
+      <Row
+        xs={"auto"}
+        md={"auto"}
+        className="g-4"
+        style={{ alignSelf: "center" }}
+      >
         {products.map((product) => cardItem(product))}
       </Row>
     </Container>

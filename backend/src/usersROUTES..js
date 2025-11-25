@@ -55,7 +55,7 @@ user_routes.post("/login", async (req, res) => {
   const token = jwt.sign(
     { id: user.id, email: user.email },
     "secret_key",
-    { expiresIn: "1h" }
+    { expiresIn: "30s" }
   );
 
   return res.status(200).json({

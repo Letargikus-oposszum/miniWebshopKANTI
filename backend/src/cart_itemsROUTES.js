@@ -4,7 +4,7 @@ import {
   getcart_items,
   getcart_itemsById,
   addCartItem,
-  deleteCartItemById
+  deleteCartItemById,
 } from "../tables/cart_items.js";
 
 const cart_items_Routes = express.Router();
@@ -31,8 +31,6 @@ cart_items_Routes.get("/user/:id", (req, res) => {
   res.json(cartItems);
 });
 
-
-
 cart_items_Routes.post("/", (req, res) => {
   const { userId, productId, quantity } = req.body;
 
@@ -45,7 +43,7 @@ cart_items_Routes.post("/", (req, res) => {
   res.status(201).json({
     success: true,
     cartItemId: result.lastInsertRowid,
-    message: "Item added to cart"
+    message: "Item added to cart",
   });
 });
 
