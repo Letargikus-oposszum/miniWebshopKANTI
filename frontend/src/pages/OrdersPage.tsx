@@ -18,12 +18,17 @@ const OrdersPage = () => {
       return;
     }
     apiClient
-      .get(`/orders/${userId}`)
+      .get(`/orders/user/${userId}`)
       .then((res) => {
-        setOrders(res.data);
+        const items = res.data;
+
+        if (items.length === 0) {
+          toast.info("No current orders!");
+        }
+        setOrders(items);
       })
       .catch(() => {
-        toast.error("Failed to load orders");
+        toast.error("Failed to load orders!");
       });
   }, []);
 
@@ -31,11 +36,11 @@ const OrdersPage = () => {
     apiClient
       .delete(`/orders/${order.id}`)
       .then(() => {
-        toast.success("Order removed successfully");
+        toast.success("Order removed successfully!");
         setOrders((prev) => prev.filter((o) => o.id !== order.id));
       })
       .catch(() => {
-        toast.error("Failed to remove order");
+        toast.error("Failed to remove order!");
       });
   };
 

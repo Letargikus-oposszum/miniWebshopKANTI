@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   const handleRegistry = () => {
     apiClient
-      .post("/users/registry", { email, password })
+      .post("/users/register", { email, password })
       .then(() => {
         toast.success("Registry successful! You can now log in.");
       })
@@ -64,7 +64,7 @@ const LoginPage = () => {
         <div>
           <h1>Registry</h1>
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}

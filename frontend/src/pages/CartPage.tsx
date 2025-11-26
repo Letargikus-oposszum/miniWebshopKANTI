@@ -25,7 +25,15 @@ const CartPage = () => {
       .get(`/cart_items/user/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => setCartItems(res.data))
+      .then((res) => {
+        const items = res.data;
+
+        if (items.length === 0) {
+          toast.info("Your cart is empty!");
+        }
+
+        setCartItems(items);
+      })
       .catch(() => {
         toast.error("Failed to load cart items!");
       });
