@@ -30,9 +30,9 @@ order_routes.delete("/:id", (req, res) => {
 order_routes.get("/user/:id", (req, res) => {
   const id = req.params.id;
   const orders = getOrdersByUser(id);
-  if (!orders || orders.length === 0) {
+  if (!orders) {
     return res.status(404).json({ message: "No orders!." });
   }
-  res.json(cartItems);
+  res.json(orders);
 });
 export default order_routes;

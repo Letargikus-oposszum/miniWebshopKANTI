@@ -5,6 +5,9 @@ import { toast } from "react-toastify";
 import apiClient from "../api/apiClient";
 import type { Product } from "../types/Product";
 import type { CartItem } from "../types/CartItems";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -74,7 +77,7 @@ const CartPage = () => {
       const product = products.find((p) => p.id === item.productId);
       return acc + (product ? product.price * item.quantity : 0);
     }, 0);
-
+    
     const orderDTO = {
       userId: Number(userId),
       total,
@@ -107,8 +110,8 @@ const CartPage = () => {
             {product.stock <= 0 ? " (Out of stock)" : ""} <br />
             Quantity: {item.quantity}
           </Card.Text>
-          <Button variant="primary" onClick={() => handleCartItem(item.id)}>
-            Remove from cart
+          <Button variant="danger" onClick={() => handleCartItem(item.id)}>
+            <FontAwesomeIcon icon={faTrash} />
           </Button>
         </Card.Body>
       </Card>
@@ -117,9 +120,19 @@ const CartPage = () => {
 
   return (
     <div>
-      <h1>Your Cart</h1>
-      <Button onClick={() => navigate("/")}>Back to Home</Button>
-
+      <header className="app-header">
+        <h1>Your Cart</h1>
+        <Button variant="" onClick={() => navigate("/")} className="me-2 navbutton">
+          {" "}
+          <FontAwesomeIcon icon={faHouse} />
+        </Button>
+        <Button onClick={addToOrders} variant="" className="me-2 navbutton">
+          Order
+        </Button>
+        <Button onClick={() => navigate("/orders")} variant="" className="me-2 navbutton">
+          View orders
+        </Button>
+      </header>
       {cartItems.length === 0 ? (
         <p>Your cart is empty</p>
       ) : (
@@ -127,10 +140,6 @@ const CartPage = () => {
           <Row xs={"auto"} md={"auto"} className="g-4 my-3">
             {cartItems.map((cartItem) => cardItem(cartItem))}
           </Row>
-          <Button onClick={addToOrders} className="me-2">
-            Order
-          </Button>
-          <Button onClick={() => navigate("/orders")}>View orders</Button>
         </>
       )}
     </div>

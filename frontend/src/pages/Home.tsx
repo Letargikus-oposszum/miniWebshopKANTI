@@ -4,6 +4,8 @@ import type { Product } from "../types/Product";
 import { toast } from "react-toastify";
 import { Button, Card, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { faBox, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Home = () => {
   const [products, setProducts] = useState<Array<Product>>([]);
@@ -56,7 +58,7 @@ const Home = () => {
             {product.price} Ft
             {product.stock <= 0 ? " (Out of stock)" : ""}
           </Card.Text>
-          <Button variant="primary" onClick={() => addItemToCart(product.id)}>
+          <Button variant="success" onClick={() => addItemToCart(product.id)}>
             Add to cart
           </Button>
         </Card.Body>
@@ -66,50 +68,34 @@ const Home = () => {
 
   return (
     <Container>
-      <header style={{ backgroundColor: "skyblue" }}>
-        <h3>Webshop</h3>
-        <div
-          style={{
-            position: "sticky",
-            top: "3px",
-            display: "flex",
-            justifyContent: "flex-end",
-            marginRight: "3px",
-            zIndex: 1000, // ensures it's above other content
-          }}
-        >
-          <Button
-            variant="primary"
-            onClick={() => {
-              navigate("/cart");
-            }}
-          >
-            Go to cart
+      <header className="app-header">
+        <div className="header-left">
+          <h2 className="logo">Webshop</h2>
+        </div>
+
+        <div className="header-right">
+          <Button variant="" onClick={() => navigate("/cart")} className="navbutton">
+            <FontAwesomeIcon icon={faShoppingCart} />
           </Button>
-          &nbsp;
-          <Button
-            onClick={() => {
-              navigate("/orders");
-            }}
-          >
-            View orders
+
+          <Button variant="" onClick={() => navigate("/orders")} className="navbutton">
+            <FontAwesomeIcon icon={faBox} />
           </Button>
-          &nbsp;
-          <Button
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            Register/Login
+
+          <Button variant="" onClick={() => navigate("/login")} className="navbutton">
+            Login / Register
           </Button>
-          <hr />
         </div>
       </header>
+
       <Row
         xs={"auto"}
         md={"auto"}
         className="g-4"
-        style={{ alignSelf: "center" }}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
         {products.map((product) => cardItem(product))}
       </Row>

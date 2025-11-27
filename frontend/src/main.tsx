@@ -8,6 +8,7 @@ import CartPage from './pages/CartPage'
 import OrdersPage from './pages/OrdersPage'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginPage from './pages/Login'
+import "./main.css"
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import apiClient from "../api/apiClient";
 import { toast } from "react-toastify/unstyled";
 import type { Order } from "../types/Orders";
+import { faHouse, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const OrdersPage = () => {
   const navigate = useNavigate();
@@ -50,8 +52,8 @@ const OrdersPage = () => {
         <Card.Body>
           <Card.Title>{new Date(item.created_at).toLocaleString()}</Card.Title>
           <Card.Text>{item.total} Ft</Card.Text>
-          <Button variant="primary" onClick={() => handleOrder(item)}>
-            Remove order
+          <Button variant="danger" onClick={() => handleOrder(item)}>
+            <FontAwesomeIcon icon={faTrash} />
           </Button>
         </Card.Body>
       </Card>
@@ -60,11 +62,16 @@ const OrdersPage = () => {
 
   return (
     <>
-      <div>Home page</div>
+      <header className="app-header">
+        <h1>Your orders</h1>
+        <Button variant="" onClick={() => navigate("/")} className="me-2 navbutton">
+          {" "}
+          <FontAwesomeIcon icon={faHouse} />
+        </Button>{" "}
+      </header>
       <Row xs={"auto"} md={"auto"} className="g-4 my-3">
         {orders.map((order) => cardItem(order))}
       </Row>
-      <Button onClick={() => navigate("/")}>Back to Home</Button>
     </>
   );
 };

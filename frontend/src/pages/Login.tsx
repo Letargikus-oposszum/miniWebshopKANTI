@@ -2,7 +2,7 @@ import { useState } from "react";
 import apiClient from "../api/apiClient";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import { Button } from "react-bootstrap";
+import { Button, Row, Form } from "react-bootstrap";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -32,63 +32,83 @@ const LoginPage = () => {
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "0 auto" }}>
+    <>
       {isLogin ? (
-        <div>
+        <Form noValidate>
           <h1>Login</h1>
-          <input
-            type="text"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
 
-          <Button onClick={handleLogin} style={{ marginTop: "10px" }}>
-            Login
-          </Button>
+          <Row className="mb-3">
+            <Form.Group className="mb-3" controlId="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                required
+                type="email"
+                placeholder="example@gmail.com"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
 
-          <p style={{ marginTop: "10px" }}>
-            Don't have an account?{" "}
-            <Button variant="link" onClick={() => setIsLogin(false)}>
-              Go to Registry
-            </Button>
-          </p>
-        </div>
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                required
+                type="password"
+                placeholder="strong password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Row>
+          <Form.Group className="mb-3">
+            <Form.Check
+              required
+              label="Agree to terms and conditions"
+              feedback="You must agree before submitting."
+              feedbackType="invalid"
+            />
+          </Form.Group>
+
+          <Button onClick={handleLogin}>Submit form</Button>
+          <Button onClick={() => setIsLogin(false)}>Switch to Register</Button>
+        </Form>
       ) : (
-        <div>
-          <h1>Registry</h1>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <Form noValidate>
+          <h1>Register</h1>
+          <Row className="mb-3">
+            <Form.Group className="mb-3" controlId="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                required
+                type="email"
+                placeholder="example@gmail.com"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
 
-          <Button onClick={handleRegistry} style={{ marginTop: "10px" }}>
-            Registry
-          </Button>
-
-          <p style={{ marginTop: "10px" }}>
-            Already have an account?{" "}
-            <Button variant="link" onClick={() => setIsLogin(true)}>
-              Go to Login
-            </Button>
-          </p>
-        </div>
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                required
+                type="password"
+                placeholder="strong password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Row>
+          <Form.Group className="mb-3">
+            <Form.Check
+              required
+              label="Agree to terms and conditions"
+              feedback="You must agree before submitting."
+              feedbackType="invalid"
+            />
+          </Form.Group>
+          <Button onClick={handleRegistry}>Submit form</Button>
+          <Button onClick={() => setIsLogin(true)}>Switch to Login</Button>
+        </Form>
       )}
-    </div>
+    </>
   );
 };
 

@@ -32,7 +32,7 @@ user_routes.post("/register", async (req, res) => {
 
   const user = getUserById(saved.lastInsertRowid);
 
-  res.status(201).json(user);
+  return res.status(201).json(user);
 });
 
 user_routes.post("/login", async (req, res) => {
@@ -58,7 +58,7 @@ user_routes.post("/login", async (req, res) => {
     { expiresIn: "30s" }
   );
 
-  return res.status(200).json({
+  return res.status(201).json({
     accessToken: token,
     userId: user.id,
   });

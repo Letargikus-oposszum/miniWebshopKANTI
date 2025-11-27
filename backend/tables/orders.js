@@ -21,9 +21,9 @@ export const getOrdersByUser = (userId) =>
     .prepare(
       `
     SELECT 
-      orders.id AS orderId,
+      orders.id AS id,
       orders.total,
-      orders.created_at,
+      orders.created_at
     FROM orders
     WHERE orders.userId = ?
   `

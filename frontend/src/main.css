@@ -1,0 +1,100 @@
+/* -------------------------------------------------------
+   GLOBAL APP STYLES
+---------------------------------------------------------- */
+
+/* Import a clean Google font (optional) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Global color theme */
+  --bg-color: #f5f7fa;
+  --text-color: #1a1a1a;
+  --card-bg: #ffffff;
+  --primary-color: #4e73df;
+  --primary-hover: #3b5ac8;
+
+  --border-radius: 12px;
+
+  font-family: 'Inter', sans-serif;
+}
+
+html, body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+}
+
+/* Make all pages consistent */
+body {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 100px;
+}
+
+/* -------------------------------------------------------
+   FORM CONTAINER (Login / Register)
+---------------------------------------------------------- */
+
+form {
+  background: var(--card-bg);
+  padding: 32px 40px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  width: 420px;
+  animation: fadeIn 0.3s ease;
+}
+
+form h1 {
+  font-weight: 600;
+  font-size: 28px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+form .form-label {
+  font-weight: 500;
+}
+
+/* Inputs */
+form .form-control {
+  border-radius: 8px;
+  padding: 10px;
+}
+
+/* Buttons */
+form button {
+  margin-right: 10px;
+  margin-top: 10px;
+  min-width: 120px;
+  padding: 8px 18px !important;
+  border-radius: 10px !important;
+}
+
+form button[type="submit"] {
+  background-color: var(--primary-color);
+  border: none;
+  color: #fff;
+}
+
+form button[type="submit"]:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.app-header {
+  position: fixed;
+  top: 0;
+}
+
+.navbutton:hover{
+    color: white;
+    background: black;
+}
+

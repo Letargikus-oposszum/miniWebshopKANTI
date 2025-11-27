@@ -28,4 +28,6 @@ const productList = [
   { name: "Fitness Tracker Wristband", price: 42000, stock: 22 }
 ];
 
-productList.forEach((e) => saveproducts(e.name, e.price, e.stock));
+if (getproducts().length === 0){
+  productList.forEach((e) => saveproducts(e.name, e.price, e.stock));
+}
