@@ -18,7 +18,7 @@ const Home = () => {
       .catch(() => toast.error("Failed to load products!"));
   }, []);
 
-  const addItemToCart = (productId: number) => {
+  const addItemToCart = (productId: number, itemName:string) => {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
@@ -42,7 +42,7 @@ const Home = () => {
         }
       )
       .then(() => {
-        toast.success("Item added to cart!");
+        toast.success(`${itemName} added to cart!`);
       })
       .catch(() => {
         toast.error("Failed to add item to cart!");
@@ -58,7 +58,7 @@ const Home = () => {
             {product.price} Ft
             {product.stock <= 0 ? " (Out of stock)" : ""}
           </Card.Text>
-          <Button variant="success" onClick={() => addItemToCart(product.id)}>
+          <Button variant="success" onClick={() => addItemToCart(product.id, product.name)}>
             Add to cart
           </Button>
         </Card.Body>

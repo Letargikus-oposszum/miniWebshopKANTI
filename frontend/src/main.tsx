@@ -21,6 +21,6 @@ createRoot(document.getElementById('root')!).render(
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
-    <ToastContainer/>
+    <ToastContainer limit={1}/>
   </StrictMode>,
 )

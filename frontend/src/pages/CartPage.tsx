@@ -108,7 +108,6 @@ const CartPage = () => {
           <Card.Text>
             {product.price} Ft
             {product.stock <= 0 ? " (Out of stock)" : ""} <br />
-            Quantity: {item.quantity}
           </Card.Text>
           <Button variant="danger" onClick={() => handleCartItem(item.id)}>
             <FontAwesomeIcon icon={faTrash} />
